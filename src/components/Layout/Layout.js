@@ -1,9 +1,10 @@
 import React, { Suspense, Fragment } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import LayoutStyles from "./Layout.module.scss";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Flight from "../Feature/Flight/Flight";
+import PageNotFound from "../PageNotFound";
 
 const useStyles = makeStyles((theme) => ({
   progress: {
@@ -17,7 +18,10 @@ const Layout = () => {
     <Fragment>
       <div className={LayoutStyles["parent-wrapper"]}>
         <Suspense fallback={<CircularProgress className={classes.progress} />}>
-          <Route path="/" exact component={Flight}></Route>
+          <Switch>
+            <Route path="/" exact component={Flight}></Route>
+            <Route component={PageNotFound}></Route>
+          </Switch>
           {/* <Route path="/flight-detail/:id" exact component={FlightDetail}></Route>
                     <Route path="/passenger/:id" exact component={Passenger}></Route>
                     <Route path="/passenger-list/:id" exact component={PassengerList}></Route>

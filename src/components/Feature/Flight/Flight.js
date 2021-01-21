@@ -10,11 +10,6 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
   title: {
     fontSize: 14,
   },
@@ -25,32 +20,28 @@ const useStyles = makeStyles({
 
 export default function Flight() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography
+        {/* <Typography
           className={classes.title}
           color="textSecondary"
           gutterBottom
         >
-          Word of the Day
-        </Typography>
+          Air India
+        </Typography> */}
         <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
+          Air India
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          Delhi to Bangalore
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Flight Detail</Button>
+        <Button size="small">Check-In/Change Seat</Button>
+        <Button size="small">In-Flight</Button>
       </CardActions>
     </Card>
   );
