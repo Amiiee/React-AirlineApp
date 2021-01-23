@@ -1,36 +1,31 @@
-import React, { Suspense, Fragment } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import LayoutStyles from "./Layout.module.scss";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Flight from "../Feature/Flight/Flight";
 import PageNotFound from "../PageNotFound";
-
-const useStyles = makeStyles((theme) => ({
-  progress: {
-    margin: theme.spacing(2),
-  },
-}));
+import FlightDetail from "../Feature/FlightDetail/FlightDetail";
+import PassengerList from "../Feature/PassengerList/PassengerList";
+import AdminHome from "../containers/Admin/AdminHome/AdminHome";
+import AdminOperation from "../containers/Admin/AdminOperation/AdminOperation";
 
 const Layout = () => {
-  const classes = useStyles();
   return (
-    <Fragment>
-      <div className={LayoutStyles["parent-wrapper"]}>
-        <Suspense fallback={<CircularProgress className={classes.progress} />}>
-          <Switch>
-            <Route path="/" exact component={Flight}></Route>
-            <Route component={PageNotFound}></Route>
-          </Switch>
-          {/* <Route path="/flight-detail/:id" exact component={FlightDetail}></Route>
+    <div className={LayoutStyles["parent-wrapper"]}>
+      <Switch>
+        <Route path="/" exact component={Flight}></Route>
+        <Route path="/flight-detail/:id" component={FlightDetail}></Route>
+        <Route path="/passenger-list/:id" component={PassengerList}></Route>
+        <Route path="/admin-home" component={AdminHome}></Route>
+        <Route path="/admin-operation/:id" component={AdminOperation}></Route>
+
+        <Route component={PageNotFound}></Route>
+      </Switch>
+      {/* 
                     <Route path="/passenger/:id" exact component={Passenger}></Route>
-                    <Route path="/passenger-list/:id" exact component={PassengerList}></Route>
                     <Route path="/in-flight/:id" exact component={InFlight}></Route>
                     <Route path="admin-operation/:id" exact component={AdminOperation}></Route>
                     <Route path="'admin-home" exact component={Home}></Route> */}
-        </Suspense>
-      </div>
-    </Fragment>
+    </div>
   );
 };
 

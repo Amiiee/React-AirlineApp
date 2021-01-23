@@ -3,10 +3,10 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { httpGet } from "../../../utils/api/http-calls";
-import classes from "./Flight.module.scss";
+import { httpGet } from "../../../../utils/api/http-calls";
+import classes from "./AdminHome.module.scss";
 
-class Flight extends Component {
+class AdminHome extends Component {
   state = {
     items: [],
   };
@@ -15,15 +15,14 @@ class Flight extends Component {
       this.setState({ items: response.data });
     });
   }
-  flightDetail = (id) => {
-    this.props.history.push("/flight-detail/" + id);
+  managePassenger = (id) => {
+    this.props.history.push("/admin-operation/" + id);
   };
-  // checkIn = (id) => {
-  //   this.props.history.push("/passenger/" + id);
-  // };
-  // inFlight = (id) => {
-  //   this.props.history.push("/in-flight/" + id);
-  // };
+
+  manageAncillary = (id) => {
+    this.props.history.push("/passenger/" + id);
+  };
+
   renderCard = () =>
     this.state.items.map((item) => (
       <Card key={item.id} className={classes.Flightcard}>
@@ -40,11 +39,15 @@ class Flight extends Component {
           </Typography>
         </CardContent>
         <Typography>
-          <Button color="primary" onClick={() => this.flightDetail(item.id)}>
-            Flight Detail
+          <Button color="primary" onClick={() => this.managePassenger(item.id)}>
+            Manage Passenger
           </Button>
-          <Button color="secondary">Check-In/Change Seat</Button>
-          <Button color="primary">In-Flight</Button>
+          <Button
+            color="secondary"
+            onClick={() => this.manageAncillary(item.id)}
+          >
+            Manage Ancillary Services
+          </Button>
         </Typography>
       </Card>
     ));
@@ -53,4 +56,4 @@ class Flight extends Component {
   }
 }
 
-export default Flight;
+export default AdminHome;
