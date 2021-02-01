@@ -1,0 +1,18 @@
+.Searchcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Btn,
+.MuiButtonBase-root,
+.MuiButton-root,
+.MuiButton-text,
+.Passenger_Btn__1eghs {
+  margin-left: 40px !important;
+  display: block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50% !important;
+}

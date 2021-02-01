@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { httpGet } from "../../../utils/api/http-calls";
 import classes from "./Flight.module.scss";
+import * as moment from "moment";
 
 class Flight extends Component {
   state = {
@@ -18,12 +19,12 @@ class Flight extends Component {
   flightDetail = (id) => {
     this.props.history.push("/flight-detail/" + id);
   };
-  // checkIn = (id) => {
-  //   this.props.history.push("/passenger/" + id);
-  // };
-  // inFlight = (id) => {
-  //   this.props.history.push("/in-flight/" + id);
-  // };
+  checkIn = (id) => {
+    this.props.history.push("/passenger/" + id);
+  };
+  inFlight = (id) => {
+    this.props.history.push("/in-flight/" + id);
+  };
   renderCard = () =>
     this.state.items.map((item) => (
       <Card key={item.id} className={classes.Flightcard}>
@@ -35,16 +36,21 @@ class Flight extends Component {
             {item.from} to {item.to}
           </Typography>
           <Typography color="textSecondary">
-            <b>Departure:</b> {item.departure}
-            <b>Arrival:</b> {item.arrival}
+            <b>Departure:</b> {moment(item.departure).format("LT")}
+            <span>&nbsp;</span>
+            <b>Arrival:</b> {moment(item.arrival).format("LT")}
           </Typography>
         </CardContent>
         <Typography>
           <Button color="primary" onClick={() => this.flightDetail(item.id)}>
             Flight Detail
           </Button>
-          <Button color="secondary">Check-In/Change Seat</Button>
-          <Button color="primary">In-Flight</Button>
+          <Button color="secondary" onClick={() => this.checkIn(item.id)}>
+            Check-In/Change Seat
+          </Button>
+          <Button color="primary" onClick={() => this.inFlight(item.id)}>
+            In-Flight
+          </Button>
         </Typography>
       </Card>
     ));

@@ -4,24 +4,25 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import FormControl from "@material-ui/core/FormControl";
 import DateFnsUtils from "@date-io/date-fns";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import Radio from "@material-ui/core/Radio";
-import classes from "./EditPassenger.module.scss";
+import classes from "./AddPassenger.module.scss";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
-
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const EditPassenger = React.forwardRef((props, ref) => {
+const AddPassenger = React.forwardRef((props, ref) => {
+  let date = new Date();
+  date = null;
   return (
     <Fragment>
       <Dialog
@@ -33,7 +34,7 @@ const EditPassenger = React.forwardRef((props, ref) => {
         aria-labelledby="customized-dialog-title"
       >
         <DialogTitle id="customized-dialog-title">
-          Update Passenger
+          Add Passenger
           <IconButton
             aria-label="close"
             className={classes.CloseButton}
@@ -49,7 +50,6 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="First Name"
-                  value={props.passengerDetails.firstName}
                   onChange={(event) => props.handleUpdate(event, "firstName")}
                   {...(props.errors.firstName && {
                     error: true,
@@ -63,7 +63,6 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="Last Name"
-                  value={props.passengerDetails.lastName}
                   aria-describedby="my-helper-text"
                   onChange={(event) => props.handleUpdate(event, "lastName")}
                   {...(props.errors.lastName && {
@@ -78,11 +77,11 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <KeyboardDatePicker
                   disableToolbar
                   variant="inline"
-                  format="MM/dd/yyyy"
+                  format="dd/MM/yyyy"
                   margin="normal"
                   id="date-picker-inline"
                   label="DOB"
-                  value={props.passengerDetails.DOB}
+                  value={date}
                   onChange={(event) => props.handleUpdate(event, "DOB")}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
@@ -107,7 +106,6 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
-                  value={props.passengerDetails.gender}
                   onChange={(event) => props.handleUpdate(event, "gender")}
                 >
                   <FormControlLabel
@@ -129,7 +127,6 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="Address"
-                  value={props.passengerDetails.address}
                   aria-describedby="my-helper-text"
                   onChange={(event) => props.handleUpdate(event, "address")}
                   {...(props.errors.address && {
@@ -144,7 +141,6 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="Contact"
-                  value={props.passengerDetails.contact}
                   onChange={(event) => props.handleUpdate(event, "contact")}
                   {...(props.errors.contact && {
                     error: true,
@@ -158,7 +154,6 @@ const EditPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="Passport"
-                  value={props.passengerDetails.passport}
                   onChange={(event) => props.handleUpdate(event, "passport")}
                   {...(props.errors.passport && {
                     error: true,
@@ -172,7 +167,7 @@ const EditPassenger = React.forwardRef((props, ref) => {
         <DialogActions>
           <Button
             variant="contained"
-            onClick={() => props.updatePassenger()}
+            onClick={() => props.addPassenger()}
             color="primary"
           >
             Submit
@@ -190,4 +185,4 @@ const EditPassenger = React.forwardRef((props, ref) => {
   );
 });
 
-export default EditPassenger;
+export default AddPassenger;

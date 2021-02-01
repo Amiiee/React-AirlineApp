@@ -1,0 +1,13 @@
+.Controlescontainer {
+  width: 100%;
+}
+
+.Controlescontainer > * {
+  width: 100%;
+}
+
+.CloseButton {
+  position: "absolute";
+  right: -191px;
+  top: 1px;
+}

@@ -12,6 +12,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import classes from "./PassengerList.module.scss";
+import * as moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +71,6 @@ class PassengerList extends Component {
         passengers: response.data,
         updatedPassengers: response.data,
       });
-      console.log(this.state.updatedPassengers);
     });
   }
 
@@ -84,11 +85,11 @@ class PassengerList extends Component {
         );
       } else if (event.target.value === "wheel chair") {
         passengers = this.state.passengers.filter(
-          (personDetails) => personDetails.wheelChair === false
+          (personDetails) => personDetails.wheelChair === true
         );
       } else if (event.target.value === "infant") {
         passengers = this.state.passengers.filter(
-          (personDetails) => personDetails.infant === false
+          (personDetails) => personDetails.infant === true
         );
       }
 
@@ -102,9 +103,9 @@ class PassengerList extends Component {
   render() {
     return (
       <Fragment>
-        <form className={this.classes.selectroot} autoComplete="off">
-          <FormControl variant="filled" className={this.classes.formControl}>
-            <InputLabel htmlFor="filled-age-simple">Filter By:</InputLabel>
+        <form className={classes.FilterForm} autoComplete="off">
+          <FormControl className={this.classes.formControl}>
+            <InputLabel variant="outlined">Filter By:</InputLabel>
             <Select
               value={this.state.filter}
               onChange={(event) => this.filterHandler(event)}
@@ -116,64 +117,66 @@ class PassengerList extends Component {
             </Select>
           </FormControl>
         </form>
-        <TableContainer component={Paper}>
-          <Table className={this.classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>First Name</TableCell>
-                <TableCell align="right"> Last Name</TableCell>
-                <TableCell align="right">DOB</TableCell>
-                <TableCell align="right">Gender</TableCell>
-                <TableCell align="right">Address</TableCell>
-                <TableCell align="right"> Contact </TableCell>
-                <TableCell align="right">Passport</TableCell>
-                <TableCell align="right">Check-in</TableCell>
-                <TableCell align="right">Luggage</TableCell>
-                <TableCell align="right">Food Prefernce</TableCell>
-              </TableRow>
-            </TableHead>
-            {!this.setState.updatedPassengers ? (
-              <p>No results to display</p>
-            ) : (
+        {!this.state.updatedPassengers ? (
+          <span>No results to display</span>
+        ) : (
+          <TableContainer component={Paper}>
+            <Table className={this.classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>First Name</TableCell>
+                  <TableCell align="right">Last Name</TableCell>
+                  <TableCell align="right">DOB</TableCell>
+                  <TableCell align="right">Gender</TableCell>
+                  <TableCell align="right">Address</TableCell>
+                  <TableCell align="right">Contact</TableCell>
+                  <TableCell align="right">Passport</TableCell>
+                  <TableCell align="right">Check-in</TableCell>
+                  <TableCell align="right">Luggage</TableCell>
+                  <TableCell align="right">Food Prefernce</TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
                 {this.state.updatedPassengers.map((passengerListItems) => (
                   <TableRow key={passengerListItems.id}>
                     <TableCell component="th" scope="row">
-                      {passengerListItems.firstName}
+                      <span>{passengerListItems.firstName}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.lastName}
+                      <span>{passengerListItems.lastName}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.DOB}
+                      <span>
+                        {moment(passengerListItems.DOB).format("DD-MM-YYYY")}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.gender}
+                      <span>{passengerListItems.gender}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.address}
+                      <span>{passengerListItems.address}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.contact}
+                      <span>{passengerListItems.contact}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.passport}
+                      <span>{passengerListItems.passport}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.checkIn}
+                      <span>{passengerListItems.checkIn}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.luggage}
+                      <span>{passengerListItems.luggage}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.food}
+                      <span>{passengerListItems.food}</span>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
-            )}
-          </Table>
-        </TableContainer>
+            </Table>
+          </TableContainer>
+        )}
       </Fragment>
     );
   }
