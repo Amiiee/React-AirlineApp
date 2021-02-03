@@ -9,26 +9,61 @@ import AdminHome from "../containers/Admin/AdminHome/AdminHome";
 import AdminOperation from "../containers/Admin/AdminOperation/AdminOperation";
 import Passenger from "../Feature/Passenger/Passenger";
 import InFlight from "../Feature/InFlight/InFlight";
+import { GuardProvider, GuardedRoute } from "react-router-guards";
 
 const Layout = () => {
+  const requireLogin = (to, from, next) => {
+    // if (to.meta.auth) {
+    //   if (localStorage.getItem("email")) {
+    //     if (to.meta.admin) {
+    //       if (localStorage.getItem("isAdmin") === "true") {
+    //         next();
+    //       }
+    //       next.redirect("/login");
+    //     }
+    //     next();
+    //   }
+    //   next.redirect("/login");
+    // } else {
+    next();
+    //}
+  };
   return (
     <div className={LayoutStyles["parent-wrapper"]}>
-      <Switch>
-        <Route path="/" exact component={Flight}></Route>
-        <Route path="/flight-detail/:id" component={FlightDetail}></Route>
-        <Route path="/passenger/:id" component={Passenger}></Route>
-        <Route path="/passenger-list/:id" component={PassengerList}></Route>
-        <Route path="/in-flight/:id" exact component={InFlight}></Route>
-        <Route path="/admin-home" component={AdminHome}></Route>
-        <Route path="/admin-operation/:id" component={AdminOperation}></Route>
+      <GuardProvider guards={[requireLogin]} error={PageNotFound}>
+        <Switch>
+          <Route path="/" exact component={Flight}></Route>
+          <GuardedRoute
+            path="/flight-detail/:id"
+            component={FlightDetail}
+            meta={{ auth: true, admin: false }}
+          />
+          <Route path="/passenger/:id" component={Passenger}></Route>
+          <GuardedRoute
+            path="/passenger-list/:id"
+            component={PassengerList}
+            meta={{ auth: true, admin: false }}
+          />
+          <GuardedRoute
+            path="/in-flight/:id"
+            exact
+            component={InFlight}
+            meta={{ auth: true, admin: false }}
+          />
+          <GuardedRoute
+            path="/admin-home"
+            component={AdminHome}
+            meta={{ auth: true, admin: true }}
+          />
+          <GuardedRoute
+            path="/admin-operation/:id"
+            component={AdminOperation}
+            meta={{ auth: true, admin: true }}
+          />
 
-        <Route component={PageNotFound}></Route>
-      </Switch>
-      {/* 
-                    <Route path="/passenger/:id" exact component={Passenger}></Route>
-                    <Route path="/in-flight/:id" exact component={InFlight}></Route>
-                    <Route path="admin-operation/:id" exact component={AdminOperation}></Route>
-                    <Route path="'admin-home" exact component={Home}></Route> */}
+          <GuardedRoute component={PageNotFound} />
+        </Switch>
+      </GuardProvider>
     </div>
   );
 };

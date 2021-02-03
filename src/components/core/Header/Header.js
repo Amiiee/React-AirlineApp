@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { withRouter } from "react-router-dom";
 import HeaderStyles from "./Header.module.scss";
 import { ReactComponent as Logo } from "./../../../assets/img/logo.svg";
+import Login from "../Login/Login";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,7 @@ const Header = (props) => {
             Airline App
           </IconButton>
           <div variant="h6" className={classes.title}></div>
+          <Login></Login>
         </Toolbar>
       </AppBar>
     </header>

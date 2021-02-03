@@ -55,7 +55,12 @@ class Flight extends Component {
       </Card>
     ));
   render() {
-    return <Fragment>{this.renderCard()}</Fragment>;
+    return (
+      <Fragment>
+        <br></br>
+        {this.renderCard()}
+      </Fragment>
+    );
   }
 }
 

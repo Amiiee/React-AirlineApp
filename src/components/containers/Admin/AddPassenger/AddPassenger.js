@@ -50,6 +50,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="First Name"
+                  value={props.passengerDetails.firstName}
                   onChange={(event) => props.handleUpdate(event, "firstName")}
                   {...(props.errors.firstName && {
                     error: true,
@@ -64,6 +65,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                   id="standard-basic"
                   label="Last Name"
                   aria-describedby="my-helper-text"
+                  value={props.passengerDetails.lastName}
                   onChange={(event) => props.handleUpdate(event, "lastName")}
                   {...(props.errors.lastName && {
                     error: true,
@@ -81,7 +83,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                   margin="normal"
                   id="date-picker-inline"
                   label="DOB"
-                  value={date}
+                  value={props.passengerDetails.DOB}
                   onChange={(event) => props.handleUpdate(event, "DOB")}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
@@ -106,6 +108,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                 <RadioGroup
                   aria-label="gender"
                   name="gender1"
+                  value={props.passengerDetails.gender}
                   onChange={(event) => props.handleUpdate(event, "gender")}
                 >
                   <FormControlLabel
@@ -128,6 +131,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                   id="standard-basic"
                   label="Address"
                   aria-describedby="my-helper-text"
+                  value={props.passengerDetails.address}
                   onChange={(event) => props.handleUpdate(event, "address")}
                   {...(props.errors.address && {
                     error: true,
@@ -141,6 +145,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="Contact"
+                  value={props.passengerDetails.contact}
                   onChange={(event) => props.handleUpdate(event, "contact")}
                   {...(props.errors.contact && {
                     error: true,
@@ -154,6 +159,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                 <TextField
                   id="standard-basic"
                   label="Passport"
+                  value={props.passengerDetails.passport}
                   onChange={(event) => props.handleUpdate(event, "passport")}
                   {...(props.errors.passport && {
                     error: true,

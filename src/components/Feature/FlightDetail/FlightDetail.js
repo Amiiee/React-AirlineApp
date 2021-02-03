@@ -6,6 +6,8 @@ import { httpGet, httpPut } from "../../../utils/api/http-calls";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import { connect } from "react-redux";
+import * as actionType from "../../../store/actions/action";
 
 class FlightDetail extends Component {
   state = {
@@ -128,7 +130,9 @@ class FlightDetail extends Component {
   displayDetails = (seat) => {
     this.state.passengers.forEach((item) => {
       if (item.seatId === seat.id) {
-        this.setState({ passenger: item, showPassenger: true });
+        this.setState({ passenger: item, showPassenger: true }, () =>
+          this.props.addPassenger(this.state.passenger)
+        );
       }
     });
   };
@@ -292,5 +296,18 @@ class FlightDetail extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    showPassenger: state.passenger,
+  };
+};
 
-export default withRouter(FlightDetail);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPassenger: (passenger) =>
+      dispatch({ type: actionType.ADD_PASSENGER, payload: passenger }),
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(FlightDetail)
+);

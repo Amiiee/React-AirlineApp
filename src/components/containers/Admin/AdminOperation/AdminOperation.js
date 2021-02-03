@@ -318,6 +318,7 @@ class AdminOperation extends Component {
           open={this.state.addModalOpen}
           handleUpdate={(event, field) => this.handleUpdate(event, field)}
           addPassenger={this.addPassenger}
+          passengerDetails={this.state.selectedPassengerDetails}
           modalHandleClose={this.modalClose}
           resetForm={this.resetForm}
           errors={this.state.errors}

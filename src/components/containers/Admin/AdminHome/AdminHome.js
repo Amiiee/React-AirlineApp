@@ -35,6 +35,7 @@ class AdminHome extends Component {
           </Typography>
           <Typography color="textSecondary">
             <b>Departure:</b> {item.departure}
+            <span>&nbsp;</span>
             <b>Arrival:</b> {item.arrival}
           </Typography>
         </CardContent>
@@ -52,7 +53,12 @@ class AdminHome extends Component {
       </Card>
     ));
   render() {
-    return <Fragment>{this.renderCard()}</Fragment>;
+    return (
+      <Fragment>
+        <br></br>
+        {this.renderCard()}
+      </Fragment>
+    );
   }
 }
 

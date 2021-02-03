@@ -93,7 +93,7 @@ class Passenger extends Component {
     }
     if (field === "luggagePreference") {
       this.setState({
-        luggage: event.target.value,
+        luggageType: event.target.value,
       });
     }
     console.log("------------start---------------------");
@@ -115,12 +115,19 @@ class Passenger extends Component {
     });
   }
   search = () => {
+    this.setState({
+      selectedSeat: null,
+      foodType: "",
+      luggageType: null,
+      requirementType: "",
+    });
     httpGet(
       "http://localhost:3000/passenger?airlineId=" +
         this.props.match.params.id +
         "&id=" +
         this.state.pnr
     ).then((resp) => {
+      console.log(resp);
       this.setState({
         passenger: resp.data[0],
       });
@@ -133,7 +140,9 @@ class Passenger extends Component {
           noData: false,
           selectedSeat: this.state.passenger.seatId,
           foodType: this.state.passenger.food,
-          luggageType: this.state.passenger.luggage,
+          luggageType: this.state.passenger.luggage
+            ? this.state.passenger.luggage.toString()
+            : this.state.passenger.luggage,
         });
         if (this.state.passenger.wheelChair === true) {
           this.setState({
@@ -164,36 +173,38 @@ class Passenger extends Component {
     return color;
   };
 
-  onSubmit = () => {
-    if (this.state.requirementType === "wheel chair") {
-      this.setState({
-        bool: true,
-      });
-    }
-    const pass = { ...this.state.passenger };
-    pass.food = this.setState({
-      passenger: {
-        ...this.state.passenger,
-        checkIn: true,
-        food: this.state.foodType,
-        infant: !this.state.bool,
-        luggage: this.state.luggageType,
-        seatId: this.state.selectedSeat,
-        wheelChair: this.state.bool,
-      },
-    });
+  httpcall = () => {
     httpPut(
       "http://localhost:3000/passenger/" + this.state.passenger.id,
       this.state.passenger
     )
       .then((response) => {
         alert("Update sucessfull");
-        this.props.history.push("/flight");
+        this.props.history.push("/");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  onSubmit = () => {
+    this.setState(
+      {
+        passenger: {
+          ...this.state.passenger,
+          checkIn: true,
+          food: this.state.foodType,
+          infant: this.state.requirementType === "wheel chair" ? false : true,
+          luggage: this.state.luggageType,
+          seatId: this.state.selectedSeat,
+          wheelChair:
+            this.state.requirementType === "wheel chair" ? true : false,
+        },
+      },
+      this.httpcall
+    );
+  };
+
   onClickSeat = (id) => {
     this.setState({
       selectedSeat: id,
@@ -312,6 +323,7 @@ class Passenger extends Component {
                       <RadioGroup
                         aria-label="foodPreference"
                         name="foodPreference1"
+                        value={this.state.foodType}
                         onChange={(event) =>
                           this.handleChange(event, "foodPreference")
                         }
@@ -336,6 +348,7 @@ class Passenger extends Component {
                       <RadioGroup
                         aria-label="luggagePreference"
                         name="luggagePreference1"
+                        value={this.state.luggageType}
                         onChange={(event) =>
                           this.handleChange(event, "luggagePreference")
                         }
@@ -348,7 +361,7 @@ class Passenger extends Component {
                         <FormControlLabel
                           value="25"
                           control={<Radio />}
-                          label="15"
+                          label="25"
                         />
                       </RadioGroup>
                     </FormControl>
