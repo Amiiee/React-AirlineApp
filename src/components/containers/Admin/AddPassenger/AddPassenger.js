@@ -21,8 +21,6 @@ import {
 } from "@material-ui/pickers";
 
 const AddPassenger = React.forwardRef((props, ref) => {
-  let date = new Date();
-  date = null;
   return (
     <Fragment>
       <Dialog

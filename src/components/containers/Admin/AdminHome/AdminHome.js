@@ -8,7 +8,16 @@ import classes from "./AdminHome.module.scss";
 
 class AdminHome extends Component {
   state = {
-    items: [],
+    items: [
+      {
+        id: null,
+        airline: "",
+        from: "",
+        to: "",
+        departure: "",
+        arrival: "",
+      },
+    ],
   };
   componentDidMount() {
     httpGet("http://localhost:3000/flights").then((response) => {
