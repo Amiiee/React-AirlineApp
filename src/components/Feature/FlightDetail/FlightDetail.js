@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import * as actionType from "../../../store/actions/action";
+import * as moment from "moment";
 
 class FlightDetail extends Component {
   state = {
@@ -212,7 +213,9 @@ class FlightDetail extends Component {
                       <td>
                         <b>DOB:</b>
                       </td>
-                      <td>{this.state.passenger.DOB}</td>
+                      <td>
+                        {moment(this.state.passenger.DOB).format("DD-MM-YYYY")}
+                      </td>
                     </tr>
                     <tr>
                       <td>

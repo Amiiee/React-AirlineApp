@@ -26,6 +26,7 @@ const EditPassenger = React.forwardRef((props, ref) => {
     <Fragment>
       <Dialog
         disableBackdropClick
+        BackdropProps={{ style: { backgroundColor: "transparent" } }}
         fullWidth={true}
         maxWidth="xs"
         open={props.open}
