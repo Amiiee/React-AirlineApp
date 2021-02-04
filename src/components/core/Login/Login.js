@@ -44,8 +44,12 @@ class Login extends Component {
     this.props.history.push("/");
   };
 
-  adminHome = () => {
-    this.props.history.push("/admin-home");
+  getHome = () => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      this.props.history.push("/admin-home");
+    } else {
+      this.props.history.push("/");
+    }
   };
   renderAuthButton = () => {
     if (!this.state.isSignedIn) {
@@ -77,7 +81,7 @@ class Login extends Component {
             src={this.state.imageURL}
             className={classes.Profileimg}
             onClick={() => {
-              this.adminHome();
+              this.getHome();
             }}
             alt="user-profile-pic"
           ></img>
