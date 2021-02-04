@@ -51,10 +51,10 @@
     {
       "id": 1,
       "airlineId": 1,
-      "seatId": null,
-      "checkIn": false,
+      "seatId": 9,
+      "checkIn": true,
       "wheelChair": false,
-      "infant": false,
+      "infant": true,
       "firstName": "Geneva",
       "lastName": "Geddis",
       "DOB": "1969-06-07T18:30:00.000Z",
@@ -62,15 +62,15 @@
       "address": "957 Hayes Center",
       "contact": "9025372963",
       "passport": "1142327175",
-      "luggage": null,
-      "food": null
+      "luggage": "15",
+      "food": "Non Veg"
     },
     {
       "id": 2,
       "airlineId": 1,
-      "seatId": null,
-      "checkIn": false,
-      "wheelChair": false,
+      "seatId": 3,
+      "checkIn": true,
+      "wheelChair": true,
       "infant": false,
       "firstName": "Xena",
       "lastName": "Carlyon",
@@ -79,8 +79,8 @@
       "address": "024 Annamark Crossing",
       "contact": "9042138719",
       "passport": "7290283902",
-      "luggage": null,
-      "food": null
+      "luggage": "25",
+      "food": "Veg"
     },
     {
       "id": 3,
@@ -119,10 +119,10 @@
     {
       "id": 5,
       "airlineId": 1,
-      "seatId": null,
-      "checkIn": false,
+      "seatId": 30,
+      "checkIn": true,
       "wheelChair": false,
-      "infant": false,
+      "infant": true,
       "firstName": "Brenna",
       "lastName": "Darkin",
       "DOB": "1992-10-15T18:30:00.000Z",
@@ -130,8 +130,8 @@
       "address": "005 Scofield Road",
       "contact": "9082430231",
       "passport": "6299432039",
-      "luggage": null,
-      "food": null
+      "luggage": "15",
+      "food": "Veg"
     },
     {
       "id": 6,
@@ -170,9 +170,9 @@
     {
       "id": 8,
       "airlineId": 2,
-      "seatId": null,
-      "checkIn": false,
-      "wheelChair": false,
+      "seatId": 8,
+      "checkIn": true,
+      "wheelChair": true,
       "infant": false,
       "firstName": "Darnell",
       "lastName": "Hills",
@@ -181,8 +181,8 @@
       "address": "6159 Oakridge Circle",
       "contact": "9763257044",
       "passport": "1102915319",
-      "luggage": null,
-      "food": null
+      "luggage": 15,
+      "food": "Veg"
     },
     {
       "id": 9,
@@ -206,7 +206,7 @@
       "airlineId": 2,
       "seatId": 10,
       "checkIn": true,
-      "wheelChair": false,
+      "wheelChair": true,
       "infant": false,
       "firstName": "Percy",
       "lastName": "Sore",

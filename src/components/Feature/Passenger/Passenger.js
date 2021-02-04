@@ -29,7 +29,7 @@ class Passenger extends Component {
         contact: "",
         passport: "",
         luggage: 0,
-        food: "",
+        food: null,
       },
     ],
     showSeat: false,
@@ -37,7 +37,7 @@ class Passenger extends Component {
     passenger: null,
     noData: false,
     selectedSeat: null,
-    foodType: "",
+    foodType: null,
     luggageType: null,
     requirementType: "",
     bool: false,
@@ -96,15 +96,6 @@ class Passenger extends Component {
         luggageType: event.target.value,
       });
     }
-    console.log("------------start---------------------");
-    console.log("Food Type " + this.state.foodType);
-    console.log(this.state.foodType === "");
-    console.log("Seat " + this.state.selectedSeat);
-    console.log(this.state.selectedSeat === null);
-    console.log("luggage " + this.state.luggageType);
-    console.log(this.state.luggageType === null);
-    console.log("requirement " + this.state.requirementType);
-    console.log(this.state.requirementType === "");
   };
 
   getPassenger() {
@@ -117,7 +108,7 @@ class Passenger extends Component {
   search = () => {
     this.setState({
       selectedSeat: null,
-      foodType: "",
+      foodType: null,
       luggageType: null,
       requirementType: "",
     });
@@ -219,7 +210,7 @@ class Passenger extends Component {
               <tr>
                 <td>
                   <InputLabel htmlFor="input-with-icon-adornment">
-                    Enter PNR
+                    <b>Enter PNR</b>
                   </InputLabel>
                 </td>
                 <td>
@@ -375,7 +366,7 @@ class Passenger extends Component {
                 color="primary"
                 onClick={() => this.onSubmit()}
                 disabled={
-                  this.state.foodType === "" ||
+                  this.state.foodType === null ||
                   this.state.selectedSeat === null ||
                   this.state.luggageType === null ||
                   this.state.requirementType === ""

@@ -391,18 +391,22 @@ class AdminOperation extends Component {
                       <span>{passengerListItems.passport}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.checkIn}</span>
+                      <span>{passengerListItems.checkIn ? "Yes" : "No"}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.luggage}</span>
+                      <span>
+                        {passengerListItems.luggage
+                          ? passengerListItems.luggage
+                          : "_"}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.food}
+                      {passengerListItems.food ? passengerListItems.food : "_"}
                     </TableCell>
                     <TableCell align="right">
                       {passengerListItems.seatId
                         ? "A" + passengerListItems.seatId
-                        : ""}
+                        : "_"}
                     </TableCell>
                     <TableCell align="right">
                       <DeleteIcon

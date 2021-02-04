@@ -13,7 +13,6 @@ class Login extends Component {
   };
 
   responseGoogle = (response) => {
-    console.log(response);
     if (response.profileObj) {
       this.setState({
         isSignedIn: true,
@@ -26,7 +25,11 @@ class Login extends Component {
         }
         localStorage.setItem("email", user.data[0].email);
         localStorage.setItem("isAdmin", user.data[0].isAdmin);
-        if (user.data[0].isAdmin) this.props.history.push("/admin-home");
+        if (user.data[0].isAdmin) {
+          this.props.history.push("/admin-home");
+        } else {
+          this.props.history.push("/");
+        }
       });
     }
   };
@@ -39,6 +42,10 @@ class Login extends Component {
     localStorage.removeItem("isAdmin");
 
     this.props.history.push("/");
+  };
+
+  adminHome = () => {
+    this.props.history.push("/admin-home");
   };
   renderAuthButton = () => {
     if (!this.state.isSignedIn) {
@@ -69,6 +76,9 @@ class Login extends Component {
           <img
             src={this.state.imageURL}
             className={classes.Profileimg}
+            onClick={() => {
+              this.adminHome();
+            }}
             alt="user-profile-pic"
           ></img>
 

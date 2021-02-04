@@ -163,13 +163,21 @@ class PassengerList extends Component {
                       <span>{passengerListItems.passport}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.checkIn}</span>
+                      <span>{passengerListItems.checkIn ? "Yes" : "No"}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.luggage}</span>
+                      <span>
+                        {passengerListItems.luggage
+                          ? passengerListItems.luggage
+                          : "_"}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.food}</span>
+                      <span>
+                        {passengerListItems.food
+                          ? passengerListItems.food
+                          : "_"}
+                      </span>
                     </TableCell>
                   </TableRow>
                 ))}
