@@ -87,10 +87,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                   KeyboardButtonProps={{
                     "aria-label": "change date",
                   }}
-                  {...(props.errors.DOB && {
-                    error: true,
-                    helperText: props.errors.DOB,
-                  })}
+      
                 />
               </MuiPickersUtilsProvider>
             </div>
@@ -132,10 +129,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                   aria-describedby="my-helper-text"
                   value={props.passengerDetails.address}
                   onChange={(event) => props.handleUpdate(event, "address")}
-                  {...(props.errors.address && {
-                    error: true,
-                    helperText: props.errors.address,
-                  })}
+                  
                 />
               </FormControl>
               <br></br>
@@ -160,10 +154,7 @@ const AddPassenger = React.forwardRef((props, ref) => {
                   label="Passport"
                   value={props.passengerDetails.passport}
                   onChange={(event) => props.handleUpdate(event, "passport")}
-                  {...(props.errors.passport && {
-                    error: true,
-                    helperText: props.errors.passport,
-                  })}
+                 
                 />
               </FormControl>
             </div>

@@ -206,20 +206,10 @@ class AdminOperation extends Component {
     temp.lastName = this.state.selectedPassengerDetails.lastName
       ? ""
       : "This field is mandatory";
-    temp.address = this.state.selectedPassengerDetails.address
-      ? ""
-      : "This field is mandatory";
     temp.contact =
       this.state.selectedPassengerDetails.contact.toString().length === 10
         ? ""
         : "Enter valid phone number";
-    temp.passport =
-      this.state.selectedPassengerDetails.passport.toString().length > 9
-        ? ""
-        : "Minimum 10 numbers required";
-    temp.DOB = this.state.selectedPassengerDetails.DOB
-      ? ""
-      : "Please enter date";
     temp.gender = this.state.selectedPassengerDetails.gender
       ? ""
       : "Please select gender";
@@ -284,8 +274,7 @@ class AdminOperation extends Component {
         passengers = this.state.passengers;
       } else if (event.target.value === "passport") {
         passengers = this.state.passengers.filter(
-          (personDetails) =>
-            !personDetails.passport || personDetails.passport === ""
+          (personDetails) => personDetails.passport === ""
         );
       } else if (event.target.value === "address") {
         passengers = this.state.passengers.filter(
@@ -331,7 +320,7 @@ class AdminOperation extends Component {
               onChange={(event) => this.filterHandler(event)}
             >
               <MenuItem value="None">None</MenuItem>
-              <MenuItem value={"passport "}>Passport</MenuItem>
+              <MenuItem value={"passport"}>Passport</MenuItem>
               <MenuItem value={"address"}>Address</MenuItem>
               <MenuItem value={"DOB"}>DOB</MenuItem>
             </Select>
@@ -376,19 +365,19 @@ class AdminOperation extends Component {
                       <span> {passengerListItems.lastName}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {moment(passengerListItems.DOB).format("DD-MM-YYYY")}
+                      {passengerListItems.DOB?moment(passengerListItems.DOB).format("DD-MM-YYYY"):"_"}
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.gender}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.address}</span>
+                      <span>{passengerListItems.address?passengerListItems.address:"_"}</span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.contact}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.passport}</span>
+                      <span>{passengerListItems.passport?passengerListItems.passport:"_"}</span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.checkIn ? "Yes" : "No"}</span>
