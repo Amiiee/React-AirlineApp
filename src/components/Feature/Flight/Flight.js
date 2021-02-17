@@ -19,9 +19,6 @@ class Flight extends Component {
   flightDetail = (id) => {
     this.props.history.push("/flight-detail/" + id);
   };
-  checkIn = (id) => {
-    this.props.history.push("/passenger/" + id);
-  };
   inFlight = (id) => {
     this.props.history.push("/in-flight/" + id);
   };
@@ -42,11 +39,8 @@ class Flight extends Component {
           </Typography>
         </CardContent>
         <Typography>
-          <Button color="primary" onClick={() => this.flightDetail(item.id)}>
-            Flight Detail
-          </Button>
-          <Button color="secondary" onClick={() => this.checkIn(item.id)}>
-            Check-In/Change Seat
+          <Button color="secondary" onClick={() => this.flightDetail(item.id)}>
+            Check-In
           </Button>
           <Button color="primary" onClick={() => this.inFlight(item.id)}>
             In-Flight
