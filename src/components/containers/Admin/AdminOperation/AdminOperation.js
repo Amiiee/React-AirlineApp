@@ -227,7 +227,7 @@ class AdminOperation extends Component {
         this.state.selectedPassengerDetails
       )
         .then((response) => {
-          alert("Update sucessfull");
+          alert("Update successfull");
           this.modalClose();
           this.getAllPassenger();
         })
@@ -365,19 +365,29 @@ class AdminOperation extends Component {
                       <span> {passengerListItems.lastName}</span>
                     </TableCell>
                     <TableCell align="right">
-                      {passengerListItems.DOB?moment(passengerListItems.DOB).format("DD-MM-YYYY"):"_"}
+                      {passengerListItems.DOB
+                        ? moment(passengerListItems.DOB).format("DD-MM-YYYY")
+                        : "_"}
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.gender}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.address?passengerListItems.address:"_"}</span>
+                      <span>
+                        {passengerListItems.address
+                          ? passengerListItems.address
+                          : "_"}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.contact}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.passport?passengerListItems.passport:"_"}</span>
+                      <span>
+                        {passengerListItems.passport
+                          ? passengerListItems.passport
+                          : "_"}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.checkIn ? "Yes" : "No"}</span>

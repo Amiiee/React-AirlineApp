@@ -181,8 +181,12 @@ class FlightDetail extends Component {
       this.state.passenger
     )
       .then((response) => {
-        alert("Update sucessfull");
-        this.props.history.push("/");
+        alert("Update successfull");
+        if (localStorage.getItem("isAdmin") === "true") {
+          this.props.history.push("/admin-home");
+        } else {
+          this.props.history.push("/");
+        }
       })
       .catch((error) => {
         console.log(error);
