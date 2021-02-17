@@ -4,11 +4,21 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createStore } from "redux";
-import reducer from "./store/reducers/reducer";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import passengerReducer from "./store/reducers/passsenger";
+import reduxThunk from "redux-thunk";
+import flightsReducer from "./store/reducers/flights";
 import { Provider } from "react-redux";
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+  passenger: passengerReducer,
+  flights: flightsReducer,
+});
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(reduxThunk))
+);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

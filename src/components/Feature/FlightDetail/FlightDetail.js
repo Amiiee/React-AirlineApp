@@ -7,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import * as actionType from "../../../store/actions/action";
+import * as actionType from "../../../store/actions/actionType";
 import * as moment from "moment";
 import Tooltip from "@material-ui/core/Tooltip";
 
@@ -102,6 +102,7 @@ class FlightDetail extends Component {
       "http://localhost:3000/flights?id=" + this.props.match.params.id
     ).then((response) => {
       this.setState({ flightDetail: response.data[0] });
+      this.props.allFlightDetails(response.data[0]);
     });
     httpGet(
       "http://localhost:3000/passenger?airlineId=" + this.props.match.params.id
@@ -350,7 +351,7 @@ class FlightDetail extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    showPassenger: state.passenger,
+    showPassenger: state.passenger.passenger,
   };
 };
 
@@ -358,6 +359,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addPassenger: (passenger) =>
       dispatch({ type: actionType.ADD_PASSENGER, payload: passenger }),
+    allFlightDetails: (flightDetail) =>
+      dispatch({ type: actionType.ALL_FLIGHTS, payload: flightDetail }),
   };
 };
 export default withRouter(

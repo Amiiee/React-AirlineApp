@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { withRouter } from "react-router-dom";
 import { httpGet } from "../../../utils/api/http-calls";
 import classes from "./InFlight.module.scss";
 import Button from "@material-ui/core/Button";
@@ -8,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import * as moment from "moment";
 import Tooltip from "@material-ui/core/Tooltip";
+import { connect } from "react-redux";
 
 class InFlight extends Component {
   state = {
@@ -304,5 +306,9 @@ class InFlight extends Component {
     );
   }
 }
-
-export default InFlight;
+const mapStateToProps = (state) => {
+  return {
+    flightDetails: state.flights.allFlightDetails,
+  };
+};
+export default withRouter(connect(mapStateToProps)(InFlight));
