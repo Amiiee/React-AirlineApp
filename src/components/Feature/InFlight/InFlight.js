@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import * as moment from "moment";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class InFlight extends Component {
   state = {
@@ -83,9 +84,22 @@ class InFlight extends Component {
       food: "",
     },
     showPassenger: false,
+    flightDetail: {
+      id: 0,
+      airline: "",
+      from: "",
+      to: "",
+      departure: "",
+      arrival: "",
+    },
   };
 
   componentDidMount() {
+    httpGet(
+      "http://localhost:3000/flights?id=" + this.props.match.params.id
+    ).then((response) => {
+      this.setState({ flightDetail: response.data[0] });
+    });
     this.getPassenger();
   }
 
@@ -126,6 +140,19 @@ class InFlight extends Component {
     return (
       <Fragment>
         <div className="container">
+          <h3>Flight Details</h3>
+          {this.state.flightDetail.airline}
+          <br></br>
+          <br></br>
+          {this.state.flightDetail.from} to {this.state.flightDetail.to}
+          <br></br>
+          <br></br>
+          <b>Departure:</b>
+          {moment(this.state.flightDetail.departure).format("LT")}
+          <span>&nbsp;</span>
+          <b>Arrival:</b> {moment(this.state.flightDetail.arrival).format("LT")}
+        </div>
+        <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="row">
@@ -136,7 +163,7 @@ class InFlight extends Component {
                         {this.state.mealColour.map((meal) => (
                           <td key={meal.id}>
                             <span
-                              className={classes.Seatbtn}
+                              className={classes.SeatLabelBtn}
                               style={{ backgroundColor: meal.color }}
                             ></span>
                           </td>
@@ -158,16 +185,22 @@ class InFlight extends Component {
                           className="col-4 col-sm-4 col-md-4 col-lg-4"
                           key={seat.id}
                         >
-                          <Button
-                            className={classes.Seatbtn}
-                            disabled={this.getMealColour(seat.id) === "#b3b3b3"}
-                            style={{
-                              backgroundColor: this.getMealColour(seat.id),
-                            }}
-                            onClick={() => this.displayDetails(seat.id)}
-                          >
-                            {seat.seatNo}
-                          </Button>
+                          <Tooltip title="click here">
+                            <span>
+                              <Button
+                                className={classes.Seatbtn}
+                                disabled={
+                                  this.getMealColour(seat.id) === "#b3b3b3"
+                                }
+                                style={{
+                                  backgroundColor: this.getMealColour(seat.id),
+                                }}
+                                onClick={() => this.displayDetails(seat.id)}
+                              >
+                                {seat.seatNo}
+                              </Button>
+                            </span>
+                          </Tooltip>
                         </div>
                       ))}
                     </div>
@@ -211,7 +244,11 @@ class InFlight extends Component {
                                 <td>
                                   <b>DOB:</b>
                                 </td>
-                                <td> {moment(this.state.passenger.DOB).format("DD-MM-YYYY")}</td>
+                                <td>
+                                  {moment(this.state.passenger.DOB).format(
+                                    "DD-MM-YYYY"
+                                  )}
+                                </td>
                               </tr>
                               <tr>
                                 <td>
@@ -250,9 +287,10 @@ class InFlight extends Component {
                       <CardActions>
                         <Button
                           color="primary"
+                          variant="contained"
                           onClick={() => this.onEditPassenger()}
                         >
-                          Change Meal Preference/Ancillary Service
+                          Change/Add Meal Preference/Ancillary Service
                         </Button>
                       </CardActions>
                     </Card>

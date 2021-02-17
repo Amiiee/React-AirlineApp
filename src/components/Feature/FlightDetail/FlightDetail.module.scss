@@ -7,11 +7,13 @@
 }
 
 .SeatBtn {
-  margin-left: 40px;
+  margin-left: 0px !important;
   display: block;
   height: 30px;
   width: 50px;
-  border-radius: 50%;
+  border-radius: 50% !important;
+  margin-bottom: 5px !important;
+  box-shadow: 0 9px rgb(215, 215, 241);
 }
 
 table,

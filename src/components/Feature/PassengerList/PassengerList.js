@@ -130,7 +130,7 @@ class PassengerList extends Component {
                   <TableCell align="right">Gender</TableCell>
                   <TableCell align="right">Address</TableCell>
                   <TableCell align="right">Contact</TableCell>
-                  <TableCell align="right">Passport</TableCell>
+                  <TableCell align="right">Seat No.</TableCell>
                   <TableCell align="right">Check-in</TableCell>
                   <TableCell align="right">Luggage</TableCell>
                   <TableCell align="right">Food Prefernce</TableCell>
@@ -147,20 +147,30 @@ class PassengerList extends Component {
                     </TableCell>
                     <TableCell align="right">
                       <span>
-                        {moment(passengerListItems.DOB).format("DD-MM-YYYY")}
+                        {passengerListItems.DOB
+                          ? moment(passengerListItems.DOB).format("DD-MM-YYYY")
+                          : "_"}
                       </span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.gender}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.address}</span>
+                      <span>
+                        {passengerListItems.address
+                          ? passengerListItems.address
+                          : "_"}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.contact}</span>
                     </TableCell>
                     <TableCell align="right">
-                      <span>{passengerListItems.passport}</span>
+                      <span>
+                        {passengerListItems.seatId
+                          ? "A" + passengerListItems.seatId
+                          : "_"}
+                      </span>
                     </TableCell>
                     <TableCell align="right">
                       <span>{passengerListItems.checkIn ? "Yes" : "No"}</span>

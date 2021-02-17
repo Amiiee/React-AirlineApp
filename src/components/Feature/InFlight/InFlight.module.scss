@@ -8,10 +8,19 @@ td {
   padding: 10px;
   background-color: none;
 }
+.SeatLabelBtn {
+  margin-left: 40px;
+  display: block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
 .Seatbtn {
-  margin-left: 40px !important;
+  margin-left: 20px !important;
   display: block;
   height: 30px;
   width: 30px;
   border-radius: 50% !important;
+  margin-bottom: 5px !important;
+  box-shadow: 0 9px rgb(215, 215, 241);
 }

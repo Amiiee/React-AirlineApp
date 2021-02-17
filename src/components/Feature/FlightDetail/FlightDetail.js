@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import * as actionType from "../../../store/actions/action";
 import * as moment from "moment";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class FlightDetail extends Component {
   state = {
@@ -87,8 +88,21 @@ class FlightDetail extends Component {
       food: "",
     },
     showPassenger: false,
+    flightDetail: {
+      id: 0,
+      airline: "",
+      from: "",
+      to: "",
+      departure: "",
+      arrival: "",
+    },
   };
   componentDidMount() {
+    httpGet(
+      "http://localhost:3000/flights?id=" + this.props.match.params.id
+    ).then((response) => {
+      this.setState({ flightDetail: response.data[0] });
+    });
     httpGet(
       "http://localhost:3000/passenger?airlineId=" + this.props.match.params.id
     ).then((response) => {
@@ -138,17 +152,25 @@ class FlightDetail extends Component {
     });
   };
 
+  onEditPassenger = () => {
+    this.props.history.push("/passenger/" + this.props.match.params.id);
+  };
+
   renderSeat = () =>
     this.state.seats.map((item) => (
       <div className="col-4 col-sm-4 col-md-4 col-lg-4" key={item.id}>
-        <button
-          className={classes.SeatBtn}
-          onClick={(event) => this.displayDetails(item)}
-          disabled={this.getColour(item) === "#b3b3b3"}
-          style={{ backgroundColor: this.getColour(item) }}
-        >
-          {item.seatNo}
-        </button>
+        <Tooltip title="undo check-in">
+          <span>
+            <Button
+              className={classes.SeatBtn}
+              onClick={(event) => this.displayDetails(item)}
+              disabled={this.getColour(item) === "#b3b3b3"}
+              style={{ backgroundColor: this.getColour(item) }}
+            >
+              {item.seatNo}
+            </Button>
+          </span>
+        </Tooltip>
       </div>
     ));
 
@@ -188,108 +210,135 @@ class FlightDetail extends Component {
     let passenger = null;
     if (this.state.showPassenger) {
       passenger = (
-        <div className="col-md-5">
-          <Card>
-            <CardContent>
-              <Typography variant="h5" component="h2">
-                Passenger Details
-              </Typography>
-              <Typography component={"span"} variant={"body2"}>
-                <table>
-                  <thead>
-                    <tr>
-                      <td>
-                        <b>First Name:</b>
-                      </td>
-                      <td>{this.state.passenger.firstName}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Last Name:</b>
-                      </td>
-                      <td>{this.state.passenger.lastName}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>DOB:</b>
-                      </td>
-                      <td>
-                        {moment(this.state.passenger.DOB).format("DD-MM-YYYY")}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Gender:</b>
-                      </td>
-                      <td> {this.state.passenger.gender}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Address:</b>
-                      </td>
-                      <td>{this.state.passenger.address}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Passport:</b>
-                      </td>
-                      <td>{this.state.passenger.passport}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Luggage:</b>
-                      </td>
-                      <td>{this.state.passenger.luggage}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>Food Preference:</b>
-                      </td>
-                      <td>{this.state.passenger.food}</td>
-                    </tr>
-                    <tr>
-                      <td colSpan="2">
-                        <Button
-                          color="primary"
-                          onClick={(event) => this.undoCheckIn()}
-                        >
-                          Undo Check-in
-                        </Button>
-                      </td>
-                    </tr>
-                  </thead>
-                </table>
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              Passenger Details
+            </Typography>
+            <Typography component={"span"} variant={"body2"}>
+              <table>
+                <thead>
+                  <tr>
+                    <td>
+                      <b>First Name:</b>
+                    </td>
+                    <td>{this.state.passenger.firstName}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Last Name:</b>
+                    </td>
+                    <td>{this.state.passenger.lastName}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>DOB:</b>
+                    </td>
+                    <td>
+                      {moment(this.state.passenger.DOB).format("DD-MM-YYYY")}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Gender:</b>
+                    </td>
+                    <td> {this.state.passenger.gender}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Address:</b>
+                    </td>
+                    <td>{this.state.passenger.address}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Passport:</b>
+                    </td>
+                    <td>{this.state.passenger.passport}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Luggage:</b>
+                    </td>
+                    <td>{this.state.passenger.luggage}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <b>Food Preference:</b>
+                    </td>
+                    <td>{this.state.passenger.food}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="2">
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={(event) => this.undoCheckIn()}
+                      >
+                        Undo Check-in
+                      </Button>
+                    </td>
+                  </tr>
+                </thead>
+              </table>
+            </Typography>
+          </CardContent>
+        </Card>
       );
     }
     return (
       <Fragment>
-        <div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row">
-                <div className="col-md-7">
-                  <div>
-                    <Button
-                      color="primary"
-                      onClick={() => this.getAllPassengerDetails()}
-                    >
-                      Click here to see Passenger Details
-                    </Button>
-                  </div>
-                  <table>
-                    <thead>
-                      <tr>{this.renderSeatColor()}</tr>
-                      <tr>{this.renderSeatLabel()}</tr>
-                    </thead>
-                  </table>
-                  <div className="container">
-                    <div className="row">{this.renderSeat()}</div>
-                  </div>
+        <div className="Container">
+          <h3>Flight Details</h3>
+          {this.state.flightDetail.airline}
+          <br></br>
+          <br></br>
+          {this.state.flightDetail.from} to {this.state.flightDetail.to}
+          <br></br>
+          <br></br>
+          <b>Departure:</b>
+          {moment(this.state.flightDetail.departure).format("LT")}
+          <span>&nbsp;</span>
+          <b>Arrival:</b> {moment(this.state.flightDetail.arrival).format("LT")}
+        </div>
+        <div className="row" style={{ margin: "20px" }}>
+          <div className="col-md-12">
+            <div className="row">
+              <div className="col-md-7">
+                <div>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => this.getAllPassengerDetails()}
+                  >
+                    Click here to see Passengers List Details
+                  </Button>
                 </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <td>
+                        <h3>Seats</h3>
+                      </td>
+                    </tr>
+                    <tr>{this.renderSeatColor()}</tr>
+                    <tr>{this.renderSeatLabel()}</tr>
+                  </thead>
+                </table>
+                <div className="container">
+                  <div className="row">{this.renderSeat()}</div>
+                </div>
+              </div>
+              <div className="col-md-5">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => this.onEditPassenger()}
+                >
+                  Check-in/Change Seat passenger
+                </Button>
+                <br></br>
+                <br></br>
                 {passenger}
               </div>
             </div>
