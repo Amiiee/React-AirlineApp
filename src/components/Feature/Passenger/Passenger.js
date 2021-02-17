@@ -118,7 +118,6 @@ class Passenger extends Component {
         "&id=" +
         this.state.pnr
     ).then((resp) => {
-      console.log(resp);
       this.setState({
         passenger: resp.data[0],
       });
